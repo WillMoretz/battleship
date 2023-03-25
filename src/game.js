@@ -14,7 +14,7 @@ const ship = (len) => ({
 function createBoard() {
   const board = [];
   for (let i = 1; i < 11; i++) {
-    const column = [];
+    const column = {};
     Object.assign(column, {
       column: i,
       row: [
@@ -37,17 +37,27 @@ function createBoard() {
 
 const gameBoard = () => ({
   board: createBoard(),
-  placeShip() {},
-  checkPosition(col, row) {
-    const result = {};
+  findSquare(col, row) {
     const square = this.board[row - 1].row.filter((obj) => {
       return obj.position === `${col}${row}`;
     });
+    return square;
+  },
+  checkPosition(col, row) {
+    const result = {};
+    const square = this.findSquare(col, row);
     const position = square[0].position;
     const hasShip = square[0].hasShip;
     Object.assign(result, { position, hasShip });
-
     return result;
+  },
+  placeShip(startCol, startRow, endCol, endRow) {
+    if (startRow !== endRow) {
+      for (let i = startRow; i < endRow + 1; i++) {
+        const square = this.findSquare(startCol, i);
+        square[0].hasShip = true;
+      }
+    }
   },
 });
 
