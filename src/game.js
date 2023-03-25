@@ -2,11 +2,12 @@ const ship = (len) => ({
   length: len,
   hits: 0,
   sunk: false,
-  addHit() {
-    this.hit += 1;
+  hit() {
+    this.hits += 1;
   },
-  sink() {
-    this.sunk = true;
+  isSunk() {
+    if (this.hits === this.length) return true;
+    return false;
   },
 });
 
