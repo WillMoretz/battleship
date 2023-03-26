@@ -116,3 +116,12 @@ test("attacks stored in array", () => {
   expect(board.attacks[0].attackHit).toBe(false);
   expect(board.attacks[1].attackHit).toBe(true);
 });
+
+test("can tell when an attack sinks a ship", () => {
+  const board = gameBoard();
+  board.placeShip("c", "d", 6, 6, "X-Wing");
+  board.receiveAttack("c", 6);
+  board.receiveAttack("d", 6);
+  expect(board.attacks[0].sankShip).toBe(false);
+  expect(board.attacks[1].sankShip).toBe(true);
+});

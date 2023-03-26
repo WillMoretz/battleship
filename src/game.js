@@ -1,7 +1,6 @@
 const ship = (len) => ({
   length: len,
   hits: 0,
-  sunk: false,
   hit() {
     this.hits += 1;
   },
@@ -79,8 +78,8 @@ const gameBoard = () => ({
     });
   },
   attacks: [],
-  trackAttack(position, attackHit) {
-    this.attacks.push({ position, attackHit });
+  trackAttack(position, attackHit, sankShip) {
+    this.attacks.push({ position, attackHit, sankShip });
   },
   receiveAttack(col, row) {
     let attackedShip = false;
@@ -91,10 +90,10 @@ const gameBoard = () => ({
     });
     if (attackedShip) {
       attackedShip.obj.hit();
-      this.trackAttack(`${col}${row}`, true);
+      this.trackAttack(`${col}${row}`, true, attackedShip.obj.isSunk());
       return attackedShip.name;
     }
-    this.trackAttack(`${col}${row}`, false);
+    this.trackAttack(`${col}${row}`, false, false);
     return `${col}${row}`;
   },
 });
