@@ -131,3 +131,30 @@ test("can't attack same square twice", () => {
   board.receiveAttack("e", 8);
   expect(board.receiveAttack("e", 8)).toBe(undefined);
 });
+
+test("when ships array is empty, allShipsSunk returns false", () => {
+  const board = gameBoard();
+  expect(board.allShipsSunk()).toBe(false);
+});
+
+test("allShipsSunk returns false when not all ships are sunk", () => {
+  const board = gameBoard();
+  board.placeShip("a", "b", 5, 5, "Nina");
+  board.placeShip("j", "j", 1, 2, "Pinta");
+  expect(board.allShipsSunk()).toBe(false);
+  board.receiveAttack("a", 5);
+  board.receiveAttack("b", 5);
+  board.receiveAttack("j", 1);
+  expect(board.allShipsSunk()).toBe(false);
+});
+
+test("allShipsSunk returns true when all ships are sunk", () => {
+  const board = gameBoard();
+  board.placeShip("a", "b", 5, 5, "Nina");
+  board.placeShip("j", "j", 1, 2, "Pinta");
+  board.receiveAttack("a", 5);
+  board.receiveAttack("b", 5);
+  board.receiveAttack("j", 1);
+  board.receiveAttack("j", 2);
+  expect(board.allShipsSunk()).toBe(true);
+});
