@@ -75,6 +75,13 @@ const gameBoard = () => ({
     this.ships.push({ length, squares: occupiedSquares, name });
   },
   receiveAttack(col, row) {
+    let attackHit = false;
+    this.ships.forEach((item) => {
+      item.squares.forEach((square) => {
+        if (square === `${col}${row}`) attackHit = true;
+      });
+    });
+    if (attackHit) return "Hit!";
     return `${col}${row}`;
   },
 });

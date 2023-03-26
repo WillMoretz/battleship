@@ -91,6 +91,12 @@ test("ship object occupies squares ship was placed at when created spanning rows
 test("missed attack returns position", () => {
   const board = gameBoard();
   board.placeShip("a", "e", 1, 1);
-  expect(board.receiveAttack("d", "8")).toBe("d8");
+  expect(board.receiveAttack("d", 8)).toBe("d8");
   expect(board.receiveAttack("f", 1)).toBe("f1");
+});
+
+test("on target attack returns undefined", () => {
+  const board = gameBoard();
+  board.placeShip("a", "b", 1, 1, "queen anne's revenge");
+  expect(board.receiveAttack("a", 1)).toBe("Hit!");
 });
