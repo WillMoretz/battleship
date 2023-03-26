@@ -64,13 +64,13 @@ test("ship gets named", () => {
 test("ship object has correct length when created spanning columns", () => {
   const board = gameBoard();
   board.placeShip("a", "c", 5, 5, "titanic");
-  expect(board.ships[0].length).toBe(3);
+  expect(board.ships[0].obj.length).toBe(3);
 });
 
 test("ship object has correct length when created spanning rows", () => {
   const board = gameBoard();
   board.placeShip("a", "a", 4, 5, "droplet");
-  expect(board.ships[0].length).toBe(2);
+  expect(board.ships[0].obj.length).toBe(2);
 });
 
 test("ship object occupies squares ship was placed at when created spanning columns", () => {
@@ -95,8 +95,15 @@ test("missed attack returns position", () => {
   expect(board.receiveAttack("f", 1)).toBe("f1");
 });
 
-test("on target attack returns undefined", () => {
+test("on-target attack returns ship's name", () => {
   const board = gameBoard();
   board.placeShip("a", "b", 1, 1, "queen anne's revenge");
-  expect(board.receiveAttack("a", 1)).toBe("Hit!");
+  expect(board.receiveAttack("a", 1)).toBe("queen anne's revenge");
+});
+
+test("correct ship is hit when multiple ships exist", () => {
+  const board = gameBoard();
+  board.placeShip("e", "e", 1, 2, "Blue Space");
+  board.placeShip("g", "g", 3, 4, "USS Yorktown");
+  expect(board.receiveAttack("g", 3)).toBe("USS Yorktown");
 });

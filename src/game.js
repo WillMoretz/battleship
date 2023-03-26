@@ -72,16 +72,23 @@ const gameBoard = () => ({
         length += 1;
       }
     }
-    this.ships.push({ length, squares: occupiedSquares, name });
+    this.ships.push({
+      squares: occupiedSquares,
+      name,
+      obj: ship(length),
+    });
   },
   receiveAttack(col, row) {
-    let attackHit = false;
+    let attackedShip = false;
     this.ships.forEach((item) => {
       item.squares.forEach((square) => {
-        if (square === `${col}${row}`) attackHit = true;
+        if (square === `${col}${row}`) attackedShip = item;
       });
     });
-    if (attackHit) return "Hit!";
+    if (attackedShip) {
+      attackedShip.obj.hit();
+      return attackedShip.name;
+    }
     return `${col}${row}`;
   },
 });
