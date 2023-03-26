@@ -81,7 +81,18 @@ const gameBoard = () => ({
   trackAttack(position, attackHit, sankShip) {
     this.attacks.push({ position, attackHit, sankShip });
   },
+  isRepeatedAttack(col, row) {
+    let repeat = false;
+    this.attacks.forEach((attack) => {
+      if (attack.position === `${col}${row}`) {
+        repeat = true;
+        return;
+      }
+    });
+    return repeat;
+  },
   receiveAttack(col, row) {
+    if (this.isRepeatedAttack(col, row)) return undefined;
     let attackedShip = false;
     this.ships.forEach((item) => {
       item.squares.forEach((square) => {

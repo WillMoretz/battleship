@@ -125,3 +125,9 @@ test("can tell when an attack sinks a ship", () => {
   expect(board.attacks[0].sankShip).toBe(false);
   expect(board.attacks[1].sankShip).toBe(true);
 });
+
+test("can't attack same square twice", () => {
+  const board = gameBoard();
+  board.receiveAttack("e", 8);
+  expect(board.receiveAttack("e", 8)).toBe(undefined);
+});
