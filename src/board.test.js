@@ -107,3 +107,12 @@ test("correct ship is hit when multiple ships exist", () => {
   board.placeShip("g", "g", 3, 4, "USS Yorktown");
   expect(board.receiveAttack("g", 3)).toBe("USS Yorktown");
 });
+
+test("attacks stored in array", () => {
+  const board = gameBoard();
+  board.placeShip("a", "a", 9, 10, "rocinante");
+  board.receiveAttack("j", 10);
+  board.receiveAttack("a", 10);
+  expect(board.attacks[0].attackHit).toBe(false);
+  expect(board.attacks[1].attackHit).toBe(true);
+});

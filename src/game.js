@@ -78,6 +78,10 @@ const gameBoard = () => ({
       obj: ship(length),
     });
   },
+  attacks: [],
+  trackAttack(position, attackHit) {
+    this.attacks.push({ position, attackHit });
+  },
   receiveAttack(col, row) {
     let attackedShip = false;
     this.ships.forEach((item) => {
@@ -87,8 +91,10 @@ const gameBoard = () => ({
     });
     if (attackedShip) {
       attackedShip.obj.hit();
+      this.trackAttack(`${col}${row}`, true);
       return attackedShip.name;
     }
+    this.trackAttack(`${col}${row}`, false);
     return `${col}${row}`;
   },
 });
