@@ -51,20 +51,31 @@ const gameBoard = () => ({
     Object.assign(result, { position, hasShip });
     return result;
   },
-  placeShip(startCol, endCol, startRow, endRow) {
+  ships: [],
+  placeShip(startCol, endCol, startRow, endRow, name) {
+    let length = 0;
+    let occupiedSquares = [];
     if (startRow !== endRow) {
       for (let i = startRow; i < endRow + 1; i++) {
         const square = this.findSquare(startCol, i);
         square[0].hasShip = true;
+        length += 1;
+        occupiedSquares.push(`${startCol}${i}`);
       }
     } else {
       let currentCol = startCol;
       while (currentCol !== String.fromCharCode(endCol.charCodeAt(0) + 1)) {
         const square = this.findSquare(currentCol, startRow);
         square[0].hasShip = true;
+        occupiedSquares.push(`${currentCol}${startRow}`);
         currentCol = String.fromCharCode(currentCol.charCodeAt(0) + 1);
+        length += 1;
       }
     }
+    this.ships.push({ length, squares: occupiedSquares, name });
+  },
+  receiveAttack(col, row) {
+    return `${col}${row}`;
   },
 });
 

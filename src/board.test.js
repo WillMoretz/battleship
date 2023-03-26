@@ -54,3 +54,43 @@ test("ship spanning columns doesn't affect other squares", () => {
   expect(h8Position.hasShip).toBe(false);
   expect(h10Position.hasShip).toBe(false);
 });
+
+test("ship gets named", () => {
+  const board = gameBoard();
+  board.placeShip("j", "j", 1, 5, "kestrel");
+  expect(board.ships[0].name).toBe("kestrel");
+});
+
+test("ship object has correct length when created spanning columns", () => {
+  const board = gameBoard();
+  board.placeShip("a", "c", 5, 5, "titanic");
+  expect(board.ships[0].length).toBe(3);
+});
+
+test("ship object has correct length when created spanning rows", () => {
+  const board = gameBoard();
+  board.placeShip("a", "a", 4, 5, "droplet");
+  expect(board.ships[0].length).toBe(2);
+});
+
+test("ship object occupies squares ship was placed at when created spanning columns", () => {
+  const board = gameBoard();
+  board.placeShip("f", "h", 10, 10, "annabelle");
+  expect(board.ships[0].squares[0]).toBe("f10");
+  expect(board.ships[0].squares[1]).toBe("g10");
+  expect(board.ships[0].squares[2]).toBe("h10");
+});
+
+test("ship object occupies squares ship was placed at when created spanning rows", () => {
+  const board = gameBoard();
+  board.placeShip("h", "h", 9, 10, "obra dinn");
+  expect(board.ships[0].squares[0]).toBe("h9");
+  expect(board.ships[0].squares[1]).toBe("h10");
+});
+
+test("missed attack returns position", () => {
+  const board = gameBoard();
+  board.placeShip("a", "e", 1, 1);
+  expect(board.receiveAttack("d", "8")).toBe("d8");
+  expect(board.receiveAttack("f", 1)).toBe("f1");
+});
