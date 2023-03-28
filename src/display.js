@@ -8,9 +8,9 @@ function createBoard(eventHandler) {
     for (let j = "a"; j !== "k"; j = String.fromCharCode(j.charCodeAt(0) + 1)) {
       const square = document.createElement("button");
       square.classList.add("square");
-      square.classList.add(`${i}${j}`);
+      square.classList.add(`${j}${i}`);
       square.addEventListener("click", () => {
-        console.log(`${i}${j}`);
+        console.log(`${j}${i}`);
         eventHandler();
       });
       board.classList.add("board");
@@ -44,7 +44,6 @@ function createTitle(text) {
 }
 
 function displayGame(eventHandler) {
-  console.log("here");
   reset();
 
   const header = createHeader();
@@ -53,7 +52,9 @@ function displayGame(eventHandler) {
   const computerTitle = createTitle("Computer's Board");
   const playerTitle = createTitle("Your Board");
   const computerBoard = createBoard();
+  computerBoard.classList.add("computer-board");
   const playerBoard = createBoard();
+  playerBoard.classList.add("player-board");
 
   section.appendChild(computerTitle);
   section.appendChild(computerBoard, null);

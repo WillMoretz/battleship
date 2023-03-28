@@ -45,6 +45,14 @@ header {
   border: 1px solid black;
 }
 
+.square:hover {
+  filter: brightness(90%);
+}
+
+.square.ship {
+  filter: grayscale(80%);
+}
+
 footer {
   text-align: center;
   padding: 0.5rem;
