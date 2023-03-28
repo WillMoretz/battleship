@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "army-buster";
+  src: url(army-buster-font/ArmyBuster-eZe9x.ttf);
+}
+
+:root {
+  font-family: "army-buster", "andale mono", "Trebuchet MS",
+    "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  --main-background: #d8eefe;
+  --square-background: #3da9fc;
+}
+
+body {
+  background-color: var(--main-background, lightblue);
+}
+
+header {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0.25rem 0 0.25rem 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(10, 1fr);
+  width: 100vw;
+  height: 100vw;
+  border: 3px solid black;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.square {
+  background-color: var(--square-background, blue);
+  border: 1px solid black;
+}
+
+footer {
+  text-align: center;
+  padding: 0.5rem;
+}
