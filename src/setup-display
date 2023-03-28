@@ -1,0 +1,3 @@
+function displaySetup() {}
+
+export default displaySetup;

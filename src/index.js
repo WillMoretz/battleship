@@ -1,3 +1,3 @@
-import { displayGame } from "./display";
+import displayGame from "./game-display";
 
 displayGame();

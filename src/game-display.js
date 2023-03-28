@@ -3,9 +3,6 @@ const container = document.querySelector("[data-container]");
 function updateBoardDisplay(board) {}
 
 function createBoard(type) {
-  if (type === "setup") {
-    // Display Drag and Drop Set up Board
-  }
   const board = document.createElement("div");
   for (let i = 1; i < 11; i += 1) {
     for (let j = "a"; j !== "k"; j = String.fromCharCode(j.charCodeAt(0) + 1)) {
@@ -62,4 +59,4 @@ function displayGame() {
 }
 function displaySetup() {}
 
-export { displayGame, displaySetup };
+export default displayGame;
