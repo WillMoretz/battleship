@@ -1,3 +1,3 @@
-import displayGame from "./game-display";
+import { displayGame, displaySetup } from "./display";
 
-displayGame();
+displaySetup();
