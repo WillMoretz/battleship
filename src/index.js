@@ -1,5 +1,6 @@
 import { displayGame, displaySetup } from "./display";
 import { gameBoard } from "./game";
+import { chooseSquare, computer } from "./computer";
 
 const gameInit = (() => {
   const playerBoard = gameBoard();
@@ -31,23 +32,34 @@ const gameInit = (() => {
 
 function advanceGame(col, row) {}
 
-function handleSquareClick(col, row) {
-  if (gameInit.computerBoard.isRepeatedAttack(col, row)) return;
-  gameInit.computerBoard.receiveAttack(col, row);
-  if (
-    gameInit.computerBoard.attacks[gameInit.computerBoard.attacks.length - 1]
-      .attackHit
-  ) {
+function markSquare(board, col, row, boardType) {
+  console.log("here");
+  board.receiveAttack(col, row);
+  if (board.attacks[board.attacks.length - 1].attackHit) {
     document
-      .querySelector(".computer-board")
+      .querySelector(`.${boardType}-board`)
       .querySelector(`.${col}${row}`)
       .classList.add("hit");
   } else {
     document
-      .querySelector(".computer-board")
+      .querySelector(`.${boardType}-board`)
       .querySelector(`.${col}${row}`)
       .classList.add("missed");
   }
+}
+
+function handleSquareClick(col, row) {
+  if (gameInit.computerBoard.isRepeatedAttack(col, row)) return;
+  markSquare(gameInit.computerBoard, col, row, "computer");
+
+  if (gameInit.computerBoard.allShipsSunk()) return;
+  const computerChoice = chooseSquare(gameInit.playerBoard);
+  markSquare(
+    gameInit.playerBoard,
+    computerChoice.col,
+    computerChoice.row,
+    "player"
+  );
 }
 
 const shipsArray = [
