@@ -1,4 +1,4 @@
-import { chooseSquare, getPossibleSquares } from "./computer";
+import { getPossibleChoices } from "./computer";
 import { gameBoard } from "./game";
 
 test("computer getPossibleSquares doesn't include squares that have already been attacked", () => {
@@ -9,7 +9,7 @@ test("computer getPossibleSquares doesn't include squares that have already been
       board.receiveAttack(j, i);
     }
   }
-  getPossibleSquares(board).forEach((square) => {
+  getPossibleChoices(board).forEach((square) => {
     expect(square.col).toBe("j");
   });
 });

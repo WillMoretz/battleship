@@ -1,4 +1,4 @@
-function getPossibleSquares(board) {
+function getPossibleChoices(board) {
   const possibleSquares = [];
   for (let i = 1; i < 11; i++) {
     for (let j = "a"; j !== "k"; j = String.fromCharCode(j.charCodeAt(0) + 1)) {
@@ -10,7 +10,7 @@ function getPossibleSquares(board) {
 }
 
 function chooseSquare(board) {
-  const squares = getPossibleSquares(board);
+  const squares = getPossibleChoices(board);
   return squares[Math.floor(Math.random() * squares.length)];
 }
 
@@ -73,4 +73,4 @@ function randomShipArray() {
   return ships;
 }
 
-export { chooseSquare, getPossibleSquares, randomShipArray };
+export { chooseSquare, getPossibleChoices, randomShipArray };
