@@ -1,8 +1,15 @@
+import handleSquareClick from "./index";
 const container = document.querySelector("[data-container]");
 
-function updateBoardDisplay(board) {}
+function updateBoardDisplay(board, attackHit, col, row) {
+  if (attackHit) {
+    board.querySelector(`.${row}${col}`).classList.add("missed");
+  } else {
+    board.querySelector(`.${row}${col}`).classList.add("hit");
+  }
+}
 
-function createBoard(eventHandler) {
+function createBoard() {
   const board = document.createElement("div");
   for (let i = 1; i < 11; i += 1) {
     for (let j = "a"; j !== "k"; j = String.fromCharCode(j.charCodeAt(0) + 1)) {
@@ -10,8 +17,8 @@ function createBoard(eventHandler) {
       square.classList.add("square");
       square.classList.add(`${j}${i}`);
       square.addEventListener("click", () => {
-        console.log(`${j}${i}`);
-        eventHandler();
+        if (square.parentElement.classList.contains("player-board")) return;
+        handleSquareClick(j, i);
       });
       board.classList.add("board");
       board.appendChild(square);
@@ -43,7 +50,7 @@ function createTitle(text) {
   return title;
 }
 
-function displayGame(eventHandler) {
+function displayGame() {
   reset();
 
   const header = createHeader();
@@ -59,19 +66,19 @@ function displayGame(eventHandler) {
   section.appendChild(computerTitle);
   section.appendChild(computerBoard, null);
   section.appendChild(playerTitle);
-  section.appendChild(playerBoard, eventHandler);
+  section.appendChild(playerBoard);
 
   container.appendChild(header);
   container.appendChild(section);
   container.appendChild(footer);
 }
 
-function displaySetup(eventHandler) {
+function displaySetup() {
   const header = createHeader();
   const footer = createFooter();
   const section = document.createElement("section");
   const title = createTitle("Place Your Ships!");
-  const board = createBoard(eventHandler);
+  const board = createBoard();
 
   section.appendChild(title);
   section.appendChild(board);
@@ -81,4 +88,4 @@ function displaySetup(eventHandler) {
   container.appendChild(footer);
 }
 
-export { displayGame, displaySetup };
+export { displayGame, displaySetup, updateBoardDisplay };

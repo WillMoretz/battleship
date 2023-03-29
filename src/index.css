@@ -53,8 +53,12 @@ header {
   filter: grayscale(80%);
 }
 
-.square.missed::after {
-  content: X;
+.square.missed {
+  background-color: green;
+}
+
+.square.hit {
+  background-color: red;
 }
 
 footer {

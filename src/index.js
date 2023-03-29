@@ -1,7 +1,54 @@
 import { displayGame, displaySetup } from "./display";
 import { gameBoard } from "./game";
 
-displayGame();
+const gameInit = (() => {
+  const playerBoard = gameBoard();
+  const computerBoard = gameBoard();
+
+  function init(playerShips, computerShips) {
+    playerShips.forEach((ship) => {
+      let first = undefined;
+      let name = undefined;
+      let last = undefined;
+      ship.forEach((square) => {
+        if (name === undefined) {
+          name = square.name;
+          return;
+        }
+        if (first === undefined) first = { col: square.col, row: square.row };
+        last = { col: square.col, row: square.row };
+        const element = document
+          .querySelector(".player-board")
+          .querySelector(`.${square.col}${square.row}`);
+        element.classList.add("ship");
+      });
+      playerBoard.placeShip(first.col, last.col, first.row, last.row, name);
+    });
+  }
+
+  return { init, playerBoard, computerBoard };
+})();
+
+function advanceGame(col, row) {}
+
+function handleSquareClick(col, row) {
+  if (gameInit.computerBoard.isRepeatedAttack(col, row)) return;
+  gameInit.computerBoard.receiveAttack(col, row);
+  if (
+    gameInit.computerBoard.attacks[gameInit.computerBoard.attacks.length - 1]
+      .attackHit
+  ) {
+    document
+      .querySelector(".computer-board")
+      .querySelector(`.${col}${row}`)
+      .classList.add("hit");
+  } else {
+    document
+      .querySelector(".computer-board")
+      .querySelector(`.${col}${row}`)
+      .classList.add("missed");
+  }
+}
 
 const shipsArray = [
   [{ name: "Patrol Boat" }, { col: "a", row: 1 }, { col: "a", row: 2 }],
@@ -33,37 +80,7 @@ const shipsArray = [
     { col: "g", row: 7 },
   ],
 ];
-
-const gameInit = (() => {
-  const playerBoard = gameBoard();
-  const computerBoard = gameBoard();
-
-  function init(ships) {
-    ships.forEach((ship) => {
-      let first = undefined;
-      let name = undefined;
-      let last = undefined;
-      ship.forEach((square) => {
-        if (name === undefined) {
-          name = square.name;
-          return;
-        }
-        if (first === undefined) first = { col: square.col, row: square.row };
-        last = { col: square.col, row: square.row };
-        const element = document
-          .querySelector(".player-board")
-          .querySelector(`.${square.col}${square.row}`);
-        element.classList.add("ship");
-      });
-      playerBoard.placeShip(first.col, last.col, first.row, last.row, name);
-    });
-  }
-
-  return { init };
-})();
-
+displayGame();
 gameInit.init(shipsArray);
 
-function advanceGame(col, row) {
-  if (gameBoard.isRepeatedAttack(col, row)) return;
-}
+export default handleSquareClick;
