@@ -73,6 +73,23 @@ function displayGame() {
   container.appendChild(footer);
 }
 
+function displayGameOver(text) {
+  const popUp = document.createElement("div");
+  popUp.classList.add("pop-up");
+
+  const gameOverText = document.createElement("div");
+  gameOverText.classList.add("game-over-text");
+  gameOverText.textContent = text;
+
+  const replayButton = document.createElement("button");
+  replayButton.textContent = "Replay";
+  replayButton.classList.add("replay-button");
+
+  popUp.appendChild(gameOverText);
+  popUp.appendChild(replayButton);
+  container.appendChild(popUp);
+}
+
 function displaySetup() {
   const header = createHeader();
   const footer = createFooter();
@@ -88,4 +105,4 @@ function displaySetup() {
   container.appendChild(footer);
 }
 
-export { displayGame, displaySetup, updateBoardDisplay };
+export { displayGame, displaySetup, updateBoardDisplay, displayGameOver };
