@@ -11,7 +11,15 @@ function createBoard() {
       square.classList.add(`${j}${i}`);
       square.addEventListener("click", () => {
         if (square.parentElement.classList.contains("player-board")) return;
-        handleSquareClick(j, i);
+        if (square.parentElement.classList.contains("computer-board"))
+          handleSquareClick(j, i);
+        if (square.parentElement.classList.contains("setup-board")) {
+          // Attempt Place Ship
+        }
+      });
+      square.addEventListener("hover", () => {
+        if (!square.parentElement.classList.contains("setup-board")) return;
+        //display ship hover
       });
       board.classList.add("board");
       board.appendChild(square);
@@ -89,7 +97,7 @@ function displayGameOver(text) {
 }
 
 function createShip(squareAmount, className) {
-  const ship = document.createElement("div");
+  const ship = document.createElement("button");
   ship.classList.add(className);
   ship.classList.add("ship");
   for (let i = 0; i < squareAmount; i++) {
@@ -105,6 +113,7 @@ function displaySetup() {
   const section = document.createElement("section");
   const title = createTitle("Place Your Ships!");
   const board = createBoard();
+  board.classList.add("setup-board");
 
   const shipsContainer = document.createElement("div");
   shipsContainer.classList.add("ships-container");
