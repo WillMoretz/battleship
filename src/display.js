@@ -1,4 +1,5 @@
 import handleSquareClick from "./index";
+import { displayHover } from "./placement";
 
 const container = document.querySelector("[data-container]");
 
@@ -17,9 +18,9 @@ function createBoard() {
           // Attempt Place Ship
         }
       });
-      square.addEventListener("hover", () => {
+      square.addEventListener("mouseover", () => {
         if (!square.parentElement.classList.contains("setup-board")) return;
-        //display ship hover
+        displayHover(j, i);
       });
       board.classList.add("board");
       board.appendChild(square);
