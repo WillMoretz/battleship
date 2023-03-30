@@ -1,7 +1,7 @@
 import { displayGame, displayGameOver, displaySetup } from "./display";
 import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
-import { setActiveShipLength } from "./placement.";
+import { setActiveShipLength } from "./placement";
 
 const playerBoard = gameBoard();
 const computerBoard = gameBoard();
@@ -19,6 +19,7 @@ function createBoardFromArray(ships, board, boardType) {
       }
       if (first === undefined) first = { col: square.col, row: square.row };
       last = { col: square.col, row: square.row };
+      // Display Where Ships Are
       if (boardType === "player") {
         const element = document
           .querySelector(".player-board")
@@ -55,14 +56,16 @@ function endGame(text) {
   displayGameOver(text);
 }
 
+// Advances Game
 function handleSquareClick(col, row) {
   if (!gameActive || computerBoard.isRepeatedAttack(col, row)) return;
-  markSquare(computerBoard, col, row, "computer");
 
+  markSquare(computerBoard, col, row, "computer");
   if (computerBoard.allShipsSunk()) {
     endGame("You Win!");
     return;
   }
+
   const computerChoice = chooseSquare(playerBoard);
   markSquare(playerBoard, computerChoice.col, computerChoice.row, "player");
   if (playerBoard.allShipsSunk()) {
