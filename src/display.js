@@ -77,8 +77,13 @@ function displayGameOver(text) {
   replayButton.textContent = "Replay";
   replayButton.classList.add("replay-button");
 
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+
   popUp.appendChild(gameOverText);
   popUp.appendChild(replayButton);
+
+  container.appendChild(overlay);
   container.appendChild(popUp);
 }
 
