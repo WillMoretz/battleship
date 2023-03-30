@@ -1,5 +1,5 @@
 import handleSquareClick from "./index";
-import { displayHover } from "./placement";
+import { displayHover, placeShip } from "./placement";
 
 const container = document.querySelector("[data-container]");
 
@@ -15,7 +15,7 @@ function createBoard() {
         if (square.parentElement.classList.contains("computer-board"))
           handleSquareClick(j, i);
         if (square.parentElement.classList.contains("setup-board")) {
-          // Attempt Place Ship
+          placeShip(j, i);
         }
       });
       square.addEventListener("mouseover", () => {

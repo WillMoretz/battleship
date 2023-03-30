@@ -25,6 +25,10 @@ function displayHover(col, row) {
       placementValid = false;
       break;
     }
+    if (square.classList.contains("ship")) {
+      placementValid = false;
+      break;
+    }
 
     square.classList.add("hovered");
     if (direction === "rowSpan") currentRow += 1;
@@ -32,6 +36,23 @@ function displayHover(col, row) {
 
     iterationsLeft -= 1;
   }
+
+  if (iterationsLeft === 0) placementValid = true;
 }
 
-export { setActiveShipLength, toggleDirection, displayHover };
+function placeShip(col, row) {
+  if (!placementValid) return;
+  let currentCol = col;
+  let currentRow = row;
+  let iterationsLeft = activeShipLength;
+  while (iterationsLeft > 0) {
+    const square = document.querySelector(`.${currentCol}${currentRow}`);
+    square.classList.add("ship");
+    if (direction === "rowSpan") currentRow += 1;
+    else currentCol = String.fromCharCode(currentCol.charCodeAt(0) + 1);
+    iterationsLeft -= 1;
+  }
+  document.querySelector(".selected").remove();
+}
+
+export { setActiveShipLength, toggleDirection, displayHover, placeShip };
