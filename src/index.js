@@ -1,9 +1,10 @@
-import { displayGame, displaySetup } from "./display";
+import { displayGame, displayGameOver, displaySetup } from "./display";
 import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
 
 const playerBoard = gameBoard();
 const computerBoard = gameBoard();
+let gameActive = true;
 
 function createBoardFromArray(ships, board, boardType) {
   ships.forEach((ship) => {
@@ -48,13 +49,25 @@ function markSquare(board, col, row, boardType) {
   }
 }
 
+function endGame(text) {
+  gameActive = false;
+  displayGameOver(text);
+}
+
 function handleSquareClick(col, row) {
-  if (computerBoard.isRepeatedAttack(col, row)) return;
+  if (!gameActive || computerBoard.isRepeatedAttack(col, row)) return;
   markSquare(computerBoard, col, row, "computer");
 
-  if (computerBoard.allShipsSunk()) return;
+  if (computerBoard.allShipsSunk()) {
+    endGame("You Win!");
+    return;
+  }
   const computerChoice = chooseSquare(playerBoard);
   markSquare(playerBoard, computerChoice.col, computerChoice.row, "player");
+  if (playerBoard.allShipsSunk()) {
+    endGame("The Computer Won");
+    return;
+  }
 }
 
 displayGame();
