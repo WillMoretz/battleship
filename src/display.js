@@ -1,4 +1,5 @@
 import handleSquareClick from "./index";
+
 const container = document.querySelector("[data-container]");
 
 function createBoard() {
@@ -87,6 +88,17 @@ function displayGameOver(text) {
   container.appendChild(popUp);
 }
 
+function createShip(squareAmount, className) {
+  const ship = document.createElement("div");
+  ship.classList.add(className);
+  ship.classList.add("ship");
+  for (let i = 0; i < squareAmount; i++) {
+    const square = document.createElement("div");
+    ship.appendChild(square);
+  }
+  return ship;
+}
+
 function displaySetup() {
   const header = createHeader();
   const footer = createFooter();
@@ -94,11 +106,27 @@ function displaySetup() {
   const title = createTitle("Place Your Ships!");
   const board = createBoard();
 
+  const shipsContainer = document.createElement("div");
+  shipsContainer.classList.add("ships-container");
+
+  const aircraftCarrier = createShip(5, "aircraft-carrier");
+  const battleship = createShip(4, "battleship");
+  const submarine = createShip(3, "submarine");
+  const destroyer = createShip(3, "destroyer");
+  const patrolBoat = createShip(2, "patrol-boat");
+
   section.appendChild(title);
   section.appendChild(board);
 
+  shipsContainer.appendChild(aircraftCarrier);
+  shipsContainer.appendChild(battleship);
+  shipsContainer.appendChild(submarine);
+  shipsContainer.appendChild(destroyer);
+  shipsContainer.appendChild(patrolBoat);
+
   container.appendChild(header);
   container.appendChild(section);
+  container.appendChild(shipsContainer);
   container.appendChild(footer);
 }
 
