@@ -1,14 +1,6 @@
 import handleSquareClick from "./index";
 const container = document.querySelector("[data-container]");
 
-function updateBoardDisplay(board, attackHit, col, row) {
-  if (attackHit) {
-    board.querySelector(`.${row}${col}`).classList.add("missed");
-  } else {
-    board.querySelector(`.${row}${col}`).classList.add("hit");
-  }
-}
-
 function createBoard() {
   const board = document.createElement("div");
   for (let i = 1; i < 11; i += 1) {
@@ -105,4 +97,4 @@ function displaySetup() {
   container.appendChild(footer);
 }
 
-export { displayGame, displaySetup, updateBoardDisplay, displayGameOver };
+export { displayGame, displaySetup, displayGameOver };
