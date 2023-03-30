@@ -55,10 +55,12 @@ header {
 
 .square.missed {
   background-color: green;
+  filter: none;
 }
 
 .square.hit {
   background-color: red;
+  filter: none;
 }
 
 footer {
