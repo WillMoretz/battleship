@@ -14,6 +14,7 @@
     "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   --main-background: #d8eefe;
   --square-background: #3da9fc;
+  --highlight: #ef4565;
 }
 
 body {
@@ -29,6 +30,34 @@ header {
   font-size: 2rem;
   text-align: center;
   margin: 0.25rem 0 0.25rem 0;
+}
+
+.ships-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.ship {
+  display: flex;
+  border: 2px solid black;
+}
+
+.ship:hover {
+  filter: brightness(90%);
+}
+
+.ship.selected {
+  filter: brightness(50%);
+}
+
+.ship > div {
+  width: 10vw;
+  height: 10vw;
+  background-color: var(--highlight, red);
+  border: 1px solid black;
 }
 
 .board {
