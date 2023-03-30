@@ -1,6 +1,7 @@
 import { displayGame, displayGameOver, displaySetup } from "./display";
 import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
+import { setActiveShipLength } from "./placement.";
 
 const playerBoard = gameBoard();
 const computerBoard = gameBoard();
@@ -70,7 +71,24 @@ function handleSquareClick(col, row) {
   }
 }
 
-displayGame();
-init();
+// displayGame();
+// init();
+displaySetup();
+
+const ships = document.querySelectorAll(".ship");
+ships.forEach((ship) => {
+  ship.addEventListener("click", () => {
+    // Toggle Off
+    if (ship.classList.contains("selected")) {
+      ship.classList.remove("selected");
+      return;
+    }
+    // Deselect Other Ships
+    ships.forEach((aShip) => aShip.classList.remove("selected"));
+    // Select Ship
+    ship.classList.add("selected");
+    setActiveShipLength(ship.children.length);
+  });
+});
 
 export default handleSquareClick;
