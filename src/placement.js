@@ -1,9 +1,11 @@
 let activeShipLength = 0;
+let activeShipName = "";
 let direction = "colSpan";
 let placementValid = false;
 
-function setActiveShipLength(length) {
+function setActiveShip(length, name) {
   activeShipLength = length;
+  activeShipName = name;
 }
 
 function toggleDirection() {
@@ -21,7 +23,6 @@ function displayHover(col, row) {
   let currentCol = col;
   let currentRow = row;
   let iterationsLeft = activeShipLength;
-  console.log(iterationsLeft);
 
   clearHovered();
 
@@ -46,20 +47,36 @@ function displayHover(col, row) {
   if (iterationsLeft === 0) placementValid = true;
 }
 
+const playerArray = [];
+
 function placeShip(col, row) {
   if (!placementValid) return;
+  let shipArray = [{ name: activeShipName }];
   let currentCol = col;
   let currentRow = row;
   let iterationsLeft = activeShipLength;
   while (iterationsLeft > 0) {
+    shipArray.push({ col: currentCol, row: currentRow });
     const square = document.querySelector(`.${currentCol}${currentRow}`);
     square.classList.add("ship");
     if (direction === "rowSpan") currentRow += 1;
     else currentCol = String.fromCharCode(currentCol.charCodeAt(0) + 1);
     iterationsLeft -= 1;
   }
-  document.querySelector(".selected").remove();
+  playerArray.push(shipArray);
+
   clearHovered();
+  document.querySelector(".selected").remove();
+  // If all ships are placed init the game
+  if (document.querySelector(".placementShip") === null) {
+    const event = new CustomEvent("placementComplete", {
+      detail: { playerArray },
+      bubbles: true,
+      cancelable: true,
+      composed: false,
+    });
+    document.querySelector("[data-container]").dispatchEvent(event);
+  }
 }
 
-export { setActiveShipLength, toggleDirection, displayHover, placeShip };
+export { setActiveShip, toggleDirection, displayHover, placeShip };

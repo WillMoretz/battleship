@@ -1,7 +1,7 @@
 import { displayGame, displayGameOver, displaySetup } from "./display";
 import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
-import { setActiveShipLength } from "./placement";
+import { setActiveShip } from "./placement";
 
 const playerBoard = gameBoard();
 const computerBoard = gameBoard();
@@ -32,8 +32,9 @@ function createBoardFromArray(ships, board, boardType) {
 }
 
 function init(playerShips, computerShips) {
-  createBoardFromArray(randomShipArray(), playerBoard, "player");
-  createBoardFromArray(randomShipArray(), computerBoard, "computer");
+  displayGame();
+  createBoardFromArray(playerShips, playerBoard, "player");
+  createBoardFromArray(computerShips, computerBoard, "computer");
 }
 
 function markSquare(board, col, row, boardType) {
@@ -74,24 +75,26 @@ function handleSquareClick(col, row) {
   }
 }
 
-// displayGame();
-// init();
 displaySetup();
 
-const ships = document.querySelectorAll(".ship");
+document.addEventListener("placementComplete", (e) => {
+  init(e.detail.playerArray, randomShipArray());
+});
+
+const ships = document.querySelectorAll(".placementShip");
 ships.forEach((ship) => {
   ship.addEventListener("click", () => {
     // Toggle Off
     if (ship.classList.contains("selected")) {
       ship.classList.remove("selected");
-      setActiveShipLength(0);
+      setActiveShip(0, "");
       return;
     }
     // Deselect Other Ships
     ships.forEach((aShip) => aShip.classList.remove("selected"));
     // Select Ship
     ship.classList.add("selected");
-    setActiveShipLength(ship.children.length);
+    setActiveShip(ship.children.length, ship.classList[0]);
   });
 });
 
