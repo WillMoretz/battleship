@@ -100,7 +100,7 @@ function displayGameOver(text) {
 function createShip(squareAmount, className) {
   const ship = document.createElement("button");
   ship.classList.add(className);
-  ship.classList.add("ship");
+  ship.classList.add("placementShip");
   for (let i = 0; i < squareAmount; i++) {
     const square = document.createElement("div");
     ship.appendChild(square);

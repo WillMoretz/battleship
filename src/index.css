@@ -40,20 +40,20 @@ header {
   margin-top: 0.5rem;
 }
 
-.ship {
+.placementShip {
   display: flex;
   border: 2px solid black;
 }
 
-.ship:hover {
+.placementShip:hover {
   filter: brightness(90%);
 }
 
-.ship.selected {
+.placementShip.selected {
   filter: brightness(50%);
 }
 
-.ship > div {
+.placementShip > div {
   width: 10vw;
   height: 10vw;
   background-color: var(--highlight, red);
