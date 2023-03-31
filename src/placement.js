@@ -8,19 +8,26 @@ function setActiveShip(length, name) {
   activeShipName = name;
 }
 
-function toggleDirection() {
-  direction === "rowSpan" ? (direction = "colSpan") : (direction = "rowSpan");
-}
-
 function clearHovered() {
   document.querySelectorAll(".hovered").forEach((hovered) => {
     hovered.classList.remove("hovered");
   });
 }
 
+let startCol = "";
+let startRow = "";
+
+function toggleDirection() {
+  direction === "rowSpan" ? (direction = "colSpan") : (direction = "rowSpan");
+  displayHover(startCol, startRow);
+}
+
 function displayHover(col, row) {
+  if (col === "" || row === "") return;
   if (document.querySelector(".selected") === null) return;
+  startCol = col;
   let currentCol = col;
+  startRow = row;
   let currentRow = row;
   let iterationsLeft = activeShipLength;
 
@@ -67,6 +74,7 @@ function placeShip(col, row) {
 
   clearHovered();
   document.querySelector(".selected").remove();
+
   // If all ships are placed init the game
   if (document.querySelector(".placementShip") === null) {
     const event = new CustomEvent("placementComplete", {
