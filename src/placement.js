@@ -74,6 +74,7 @@ function placeShip(col, row) {
 
   clearHovered();
   document.querySelector(".selected").remove();
+  placementValid = false;
 
   // If all ships are placed init the game
   if (document.querySelector(".placementShip") === null) {
