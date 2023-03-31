@@ -84,6 +84,7 @@ ships.forEach((ship) => {
     // Toggle Off
     if (ship.classList.contains("selected")) {
       ship.classList.remove("selected");
+      setActiveShipLength(0);
       return;
     }
     // Deselect Other Ships

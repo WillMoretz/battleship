@@ -1,6 +1,6 @@
 let activeShipLength = 0;
 let direction = "colSpan";
-let placementValid = true;
+let placementValid = false;
 
 function setActiveShipLength(length) {
   activeShipLength = length;
@@ -10,14 +10,20 @@ function toggleDirection() {
   direction === "rowSpan" ? (direction = "colSpan") : (direction = "rowSpan");
 }
 
-function displayHover(col, row) {
-  let currentCol = col;
-  let currentRow = row;
-  let iterationsLeft = activeShipLength;
-
+function clearHovered() {
   document.querySelectorAll(".hovered").forEach((hovered) => {
     hovered.classList.remove("hovered");
   });
+}
+
+function displayHover(col, row) {
+  if (document.querySelector(".selected") === null) return;
+  let currentCol = col;
+  let currentRow = row;
+  let iterationsLeft = activeShipLength;
+  console.log(iterationsLeft);
+
+  clearHovered();
 
   while (iterationsLeft > 0) {
     const square = document.querySelector(`.${currentCol}${currentRow}`);
@@ -53,6 +59,7 @@ function placeShip(col, row) {
     iterationsLeft -= 1;
   }
   document.querySelector(".selected").remove();
+  clearHovered();
 }
 
 export { setActiveShipLength, toggleDirection, displayHover, placeShip };
