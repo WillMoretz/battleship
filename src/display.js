@@ -91,6 +91,10 @@ function displayGameOver(text) {
   const replayButton = document.createElement("button");
   replayButton.textContent = "Replay";
   replayButton.classList.add("replay-button");
+  replayButton.addEventListener("click", () => {
+    displaySetup();
+    resetPlacement();
+  });
 
   const overlay = document.createElement("div");
   overlay.classList.add("overlay");
@@ -114,6 +118,8 @@ function createShip(squareAmount, className) {
 }
 
 function displaySetup() {
+  reset();
+
   const header = createHeader();
   const footer = createFooter();
   const section = document.createElement("section");

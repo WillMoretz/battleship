@@ -3,9 +3,8 @@ import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
 import { setActiveShip, toggleDirection } from "./placement";
 
-const playerBoard = gameBoard();
-const computerBoard = gameBoard();
-let gameActive = true;
+let playerBoard;
+let computerBoard;
 
 function createBoardFromArray(ships, board, boardType) {
   ships.forEach((ship) => {
@@ -33,7 +32,9 @@ function createBoardFromArray(ships, board, boardType) {
 
 function init(playerShips, computerShips) {
   displayGame();
+  playerBoard = gameBoard();
   createBoardFromArray(playerShips, playerBoard, "player");
+  computerBoard = gameBoard();
   createBoardFromArray(computerShips, computerBoard, "computer");
 }
 
@@ -52,33 +53,23 @@ function markSquare(board, col, row, boardType) {
   }
 }
 
-function endGame(text) {
-  gameActive = false;
-  displayGameOver(text);
-}
-
 // Advances Game
 function handleSquareClick(col, row) {
-  if (!gameActive || computerBoard.isRepeatedAttack(col, row)) return;
+  if (computerBoard.isRepeatedAttack(col, row)) return;
 
   markSquare(computerBoard, col, row, "computer");
   if (computerBoard.allShipsSunk()) {
-    endGame("You Win!");
+    displayGameOver("You Won");
     return;
   }
 
   const computerChoice = chooseSquare(playerBoard);
   markSquare(playerBoard, computerChoice.col, computerChoice.row, "player");
   if (playerBoard.allShipsSunk()) {
-    endGame("The Computer Won");
+    displayGameOver("The Computer Won");
     return;
   }
 }
-
-window.addEventListener("keydown", (e) => {
-  if (e.key === "r") toggleDirection();
-});
-displaySetup();
 
 document.addEventListener("placementComplete", (e) => {
   init(e.detail.playerArray, randomShipArray());
@@ -102,5 +93,10 @@ function handlePlacementShips() {
     });
   });
 }
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "r") toggleDirection();
+});
+displaySetup();
 
 export { handleSquareClick, handlePlacementShips };
