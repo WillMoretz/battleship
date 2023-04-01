@@ -1,7 +1,7 @@
 import { displayGame, displayGameOver, displaySetup } from "./display";
 import { gameBoard } from "./game";
 import { chooseSquare, randomShipArray } from "./computer";
-import { setActiveShip } from "./placement";
+import { setActiveShip, toggleDirection } from "./placement";
 
 const playerBoard = gameBoard();
 const computerBoard = gameBoard();
@@ -75,27 +75,32 @@ function handleSquareClick(col, row) {
   }
 }
 
+window.addEventListener("keydown", (e) => {
+  if (e.key === "r") toggleDirection();
+});
 displaySetup();
 
 document.addEventListener("placementComplete", (e) => {
   init(e.detail.playerArray, randomShipArray());
 });
 
-const ships = document.querySelectorAll(".placementShip");
-ships.forEach((ship) => {
-  ship.addEventListener("click", () => {
-    // Toggle Off
-    if (ship.classList.contains("selected")) {
-      ship.classList.remove("selected");
-      setActiveShip(0, "");
-      return;
-    }
-    // Deselect Other Ships
-    ships.forEach((aShip) => aShip.classList.remove("selected"));
-    // Select Ship
-    ship.classList.add("selected");
-    setActiveShip(ship.children.length, ship.classList[0]);
+function handlePlacementShips() {
+  const ships = document.querySelectorAll(".placementShip");
+  ships.forEach((ship) => {
+    ship.addEventListener("click", () => {
+      // Toggle Off
+      if (ship.classList.contains("selected")) {
+        ship.classList.remove("selected");
+        setActiveShip(0, "");
+        return;
+      }
+      // Deselect Other Ships
+      ships.forEach((aShip) => aShip.classList.remove("selected"));
+      // Select Ship
+      ship.classList.add("selected");
+      setActiveShip(ship.children.length, ship.classList[0]);
+    });
   });
-});
+}
 
-export default handleSquareClick;
+export { handleSquareClick, handlePlacementShips };

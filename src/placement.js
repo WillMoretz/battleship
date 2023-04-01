@@ -54,7 +54,10 @@ function displayHover(col, row) {
   if (iterationsLeft === 0) placementValid = true;
 }
 
-const playerArray = [];
+let playerArray = [];
+function resetPlacement() {
+  playerArray.length = 0;
+}
 
 function placeShip(col, row) {
   if (!placementValid) return;
@@ -88,4 +91,10 @@ function placeShip(col, row) {
   }
 }
 
-export { setActiveShip, toggleDirection, displayHover, placeShip };
+export {
+  setActiveShip,
+  toggleDirection,
+  displayHover,
+  placeShip,
+  resetPlacement,
+};

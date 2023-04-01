@@ -1,5 +1,10 @@
-import handleSquareClick from "./index";
-import { displayHover, placeShip, toggleDirection } from "./placement";
+import { handleSquareClick, handlePlacementShips } from "./index";
+import {
+  displayHover,
+  placeShip,
+  toggleDirection,
+  resetPlacement,
+} from "./placement";
 
 const container = document.querySelector("[data-container]");
 
@@ -125,8 +130,14 @@ function displaySetup() {
   rotateButton.addEventListener("click", () => {
     toggleDirection();
   });
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "r") toggleDirection();
+
+  const resetButton = document.createElement("button");
+  resetButton.textContent = "Reset";
+  resetButton.classList.add("reset-button");
+  resetButton.addEventListener("click", () => {
+    container.textContent = "";
+    displaySetup();
+    resetPlacement();
   });
 
   const shipsContainer = document.createElement("div");
@@ -142,6 +153,7 @@ function displaySetup() {
   section.appendChild(board);
 
   buttons.appendChild(rotateButton);
+  buttons.appendChild(resetButton);
 
   shipsContainer.appendChild(aircraftCarrier);
   shipsContainer.appendChild(battleship);
@@ -154,6 +166,7 @@ function displaySetup() {
   container.appendChild(buttons);
   container.appendChild(shipsContainer);
   container.appendChild(footer);
+  handlePlacementShips();
 }
 
 export { displayGame, displaySetup, displayGameOver };
