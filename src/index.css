@@ -145,7 +145,7 @@ footer {
   display: grid;
   gap: 0.5rem;
   text-align: center;
-  min-width: 90vw;
+  width: min(90vw, 400px);
 }
 
 .game-over-text {
@@ -167,4 +167,43 @@ footer {
 
 .replay-button:hover {
   filter: brightness(90%);
+}
+
+@media (min-width: 800px) {
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .board {
+    max-width: 385px;
+    max-height: 385px;
+  }
+
+  .placementShip > div {
+    max-height: 38px;
+    max-width: 38px;
+  }
+
+  section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .player-board {
+    order: 4;
+  }
+
+  .computer-board {
+    margin-right: 30px;
+    order: 3;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

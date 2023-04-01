@@ -65,7 +65,9 @@ function displayGame() {
   const footer = createFooter();
   const section = document.createElement("section");
   const computerTitle = createTitle("Computer's Board");
+  computerTitle.style.width = "50%";
   const playerTitle = createTitle("Your Board");
+  playerTitle.style.width = "50%";
   const computerBoard = createBoard();
   computerBoard.classList.add("computer-board");
   const playerBoard = createBoard();
@@ -125,6 +127,7 @@ function displaySetup() {
   const footer = createFooter();
   const section = document.createElement("section");
   const title = createTitle("Place Your Ships!");
+  title.style.width = "100%";
   const board = createBoard();
   board.classList.add("setup-board");
 
