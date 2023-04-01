@@ -20,6 +20,7 @@ function createBoard() {
         if (square.parentElement.classList.contains("computer-board"))
           handleSquareClick(j, i);
         if (square.parentElement.classList.contains("setup-board")) {
+          displayHover(j, i);
           placeShip(j, i);
         }
       });
